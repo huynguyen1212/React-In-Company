@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 class Search extends Component {
   constructor(props) {
@@ -37,7 +39,7 @@ class Search extends Component {
               className="btn btn-primary"
               onClick={this.onSearch}
             >
-              <span className="fa fa-search mr-5">Tìm</span>
+              <FontAwesomeIcon icon={faSearch} /> Tìm
             </button>
           </span>
         </div>

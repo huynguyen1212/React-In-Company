@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 class TaskItem extends Component {
   onUpdateStatus = () => {
@@ -34,7 +36,8 @@ class TaskItem extends Component {
             className="btn btn-warning"
             onClick={this.onUpdate}
           >
-            <span className="fa fa-pencil mr-5"></span>Sửa
+            <FontAwesomeIcon icon={faPencilAlt} />
+            {" Sửa"}
           </button>
           &nbsp;
           <button
@@ -42,7 +45,8 @@ class TaskItem extends Component {
             className="btn btn-danger"
             onClick={this.onDelete}
           >
-            <span className="fa fa-trash mr-5"></span>Xóa
+            <FontAwesomeIcon icon={faTrash} />
+            {" Xóa"}
           </button>
         </td>
       </tr>

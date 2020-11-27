@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
 class Sort extends Component {
   onClick = (sortBy, sortValue) => {
@@ -16,8 +18,8 @@ class Sort extends Component {
             aria-haspopup="true"
             aria-expanded="true"
           >
-            Sắp xếp
-            <span className="fa fa-caret-square-o-down ml-5"></span>
+            {"Sắp xếp "}
+            <FontAwesomeIcon icon={faAngleDown} />
           </button>
           <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
             <li onClick={() => this.onClick("name", 1)}>

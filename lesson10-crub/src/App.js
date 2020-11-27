@@ -5,7 +5,7 @@ import TaskControl from "./components/TaskControl";
 import TaskList from "./components/TaskList";
 import { filter, findIndex } from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckSquare, faCoffee, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 class App extends Component {
   constructor(props) {
@@ -249,7 +249,7 @@ class App extends Component {
               onClick={this.onToggleForm}
             >
               <FontAwesomeIcon icon={faPlus} />
-              Thêm Công Việc
+              {" Thêm Công Việc"}
             </button>
             <TaskControl
               onSearch={this.onSearch}

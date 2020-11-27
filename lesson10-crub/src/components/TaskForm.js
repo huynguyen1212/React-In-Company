@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 
 class TaskForm extends Component {
   constructor(props) {
@@ -72,11 +74,8 @@ class TaskForm extends Component {
       <div className="panel panel-warning">
         <div className="panel-heading">
           <h3 className="panel-title">
-            {id != "" ? "Cập nhập công việc" : "Thêm công việc"}
-            <span
-              className="fa fa-time-circle text-right"
-              onClick={this.onCloseForm}
-            ></span>
+            {id != "" ? "Cập nhập công việc               " : "Thêm công việc                 "}
+            <FontAwesomeIcon icon={faWindowClose} onClick={this.onCloseForm} />
           </h3>
         </div>
         <div className="panel-body">
