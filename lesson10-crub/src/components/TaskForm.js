@@ -74,7 +74,7 @@ class TaskForm extends Component {
       <div className="panel panel-warning">
         <div className="panel-heading">
           <h3 className="panel-title">
-            {id != "" ? "Cập nhập công việc               " : "Thêm công việc                 "}
+            {id != "" ? "Cập nhập công việc " : "Thêm công việc "}
             <FontAwesomeIcon icon={faWindowClose} onClick={this.onCloseForm} />
           </h3>
         </div>

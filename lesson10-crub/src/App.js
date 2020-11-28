@@ -272,3 +272,13 @@ class App extends Component {
 }
 
 export default App;
+
+// Hiển thị danh sách công việc
+// Đóng mở form
+// Chức năng thêm mới công việc (lưu, hủy bỏ)
+// Cập nhập status
+// Chức năng xóa công việc
+// Chức năng sửa công việc
+// Lọc dữ liệu trên Table
+// Chức năng tìm kiếm
+// Chức năng sắp xếp
