@@ -12,7 +12,17 @@ class App extends Component {
     super(props);
     this.state = {
       tasks: [],
+      isDisplayForm: false,
     };
+  }
+
+  componentWillMount() {
+    if (localStorage && localStorage.getItem("tasks")) {
+      var tasks = JSON.parse(localStorage.getItem("tasks"));
+      this.setState({
+        tasks: tasks,
+      });
+    }
   }
 
   s4() {
@@ -35,25 +45,56 @@ class App extends Component {
     );
   }
 
+  onToogleForm = () => {
+    this.setState({
+      isDisplayForm: !this.state.isDisplayForm,
+    });
+  };
+
+  onCloseForm = () => {
+    this.setState({
+      isDisplayForm: false,
+    });
+  };
+
   render() {
+    var { tasks, isDisplayForm } = this.state;
+    var elmTaskForm = isDisplayForm ? (
+      <TaskForm onCloseForm={this.onCloseForm} />
+    ) : (
+      ""
+    );
     return (
       <div className="container">
         <div className="text-center">
           <h1>Quản lí công việc</h1> <hr />
         </div>
-
         <div className="row">
-          <TaskForm />
-
-          <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-            <button type="button" className="btn btn-primary">
-              <FontAwesomeIcon icon={faPlus} />
+          <div
+            className={
+              isDisplayForm ? "col-xs-4 col-sm-4 col-md-4 col-lg-4" : ""
+            }
+          >
+            {elmTaskForm}
+          </div>
+          <div
+            className={
+              isDisplayForm
+                ? "col-xs-8 col-sm-8 col-md-8 col-lg-8"
+                : "col-xs-12 col-sm-12 col-md-12 col-lg-12"
+            }
+          >
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={this.onToogleForm}
+            >
               {" Thêm Công Việc"}
             </button>
 
             <TaskControl />
 
-            <TaskList />
+            <TaskList tasks={tasks} />
           </div>
         </div>
       </div>
