@@ -276,9 +276,9 @@ export default App;
 // Hiển thị danh sách công việc
 // Đóng mở form
 // Chức năng thêm mới công việc (lưu, hủy bỏ)
-// Cập nhập status
-// Chức năng xóa công việc
-// Chức năng sửa công việc
+// Cập nhập status theo id (truyền id rồi tìm id trong tasks chuyển tasks[index] status thành ngc lại)
+// Chức năng xóa công việc theo id (truyền id rồi tìm id trong tasks chuyển tasks[index] xoa)
+// Chức năng sửa công việc (tạo tasksEditing lưu tasks[index] rồi truyền vào Taskform)
 // Lọc dữ liệu trên Table
 // Chức năng tìm kiếm
 // Chức năng sắp xếp
