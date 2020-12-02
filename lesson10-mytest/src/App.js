@@ -240,6 +240,7 @@ class App extends Component {
               className="btn btn-primary"
               onClick={this.onToogleForm}
             >
+              <FontAwesomeIcon icon={faPlus} />
               {" Thêm Công Việc"}
             </button>
 
