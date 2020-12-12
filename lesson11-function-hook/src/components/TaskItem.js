@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencilAlt, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 
 function TaskItem(props) {
   const onUpdateStatus = () => {

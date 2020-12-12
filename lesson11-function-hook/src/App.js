@@ -6,6 +6,7 @@ import TaskList from "./components/TaskList";
 import { filter, findIndex } from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const s4 = () => {
   return Math.floor((1 + Math.random()) * 0x10000)
@@ -151,60 +152,55 @@ function App(props) {
       else return 0;
     });
   }
-  var elmTaskForm = isDisplayForm ? (
-    <TaskForm
-      onCloseForm={onCloseForm}
-      onSubmit={onSubmit}
-      task={tasksEditing}
-    />
-  ) : (
-    ""
-  );
 
   return (
-    <div className="container">
-      <div className="text-center">
-        <h1>Quản lí công việc</h1> <hr />
-      </div>
-      <div className="row">
-        <div
-          className={isDisplayForm ? "col-xs-4 col-sm-4 col-md-4 col-lg-4" : ""}
-        >
-          {elmTaskForm}
-        </div>
-        <div
-          className={
-            isDisplayForm
-              ? "col-xs-8 col-sm-8 col-md-8 col-lg-8"
-              : "col-xs-12 col-sm-12 col-md-12 col-lg-12"
-          }
-        >
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={onToogleForm}
-          >
-            <FontAwesomeIcon icon={faPlus} />
-            {" Thêm Công Việc"}
-          </button>
-
-          <TaskControl
-            onSearch={onSearch}
-            onSort={onSort}
-            sortBy={sortBy}
-            sortValue={sortValue}
-          />
-
-          <TaskList
-            tasks={temps}
-            onUpdateStatus={onUpdateStatus}
-            onDelete={onDelete}
-            onUpdate={onUpdate}
-            onFilter={onFilter}
-          />
+    <Router>
+      <div className="container">
+        <div className="text-center">
+          <h1>Quản lí công việc</h1> <hr />
         </div>
       </div>
-    </div>
+      <Switch>
+        <Route exact path="/">
+          <div className="row">
+            <div className={"col-xs-12 col-sm-12 col-md-12 col-lg-12"}>
+              <Link to="/form">
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={onToogleForm}
+                >
+                  <FontAwesomeIcon icon={faPlus} />
+                  {" Thêm Công Việc"}
+                </button>
+              </Link>
+
+              <TaskControl
+                onSearch={onSearch}
+                onSort={onSort}
+                sortBy={sortBy}
+                sortValue={sortValue}
+              />
+
+              <TaskList
+                tasks={temps}
+                onUpdateStatus={onUpdateStatus}
+                onDelete={onDelete}
+                onUpdate={onUpdate}
+                onFilter={onFilter}
+              />
+            </div>
+          </div>
+        </Route>
+        <Route path="/form">
+          <TaskForm
+            onCloseForm={onCloseForm}
+            onSubmit={onSubmit}
+            task={tasksEditing}
+          />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

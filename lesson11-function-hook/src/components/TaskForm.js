@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  NavLink,
+  useHistory,
+} from "react-router-dom";
 
 function TaskForm(props) {
   const [id, setId] = useState("");
@@ -22,6 +29,7 @@ function TaskForm(props) {
   const onCloseForm = () => {
     props.onCloseForm();
   };
+  let history = useHistory();
 
   const onChange = (event) => {
     let target = event.target;
@@ -40,6 +48,7 @@ function TaskForm(props) {
   const onSubmit = (event) => {
     event.preventDefault();
     props.onSubmit({ id: id, name: name, status: status });
+    history.push("/");
     onCloseForm();
     onClear();
   };
@@ -47,6 +56,7 @@ function TaskForm(props) {
   const onClear = () => {
     setName("");
     setStatus(false);
+    history.push("/");
   };
 
   return (
