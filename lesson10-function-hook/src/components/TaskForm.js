@@ -8,6 +8,7 @@ import {
   NavLink,
   useHistory,
 } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 function TaskForm(props) {
   const [id, setId] = useState("");
@@ -59,6 +60,8 @@ function TaskForm(props) {
     history.push("/");
   };
 
+  const { register, handleSubmit } = useForm();
+
   return (
     <div className="panel panel-warning">
       <div className="panel-heading">
@@ -68,7 +71,7 @@ function TaskForm(props) {
         </h3>
       </div>
       <div className="panel-body">
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="form-group">
             <label>Tên : </label>
             <input
@@ -77,6 +80,9 @@ function TaskForm(props) {
               name="name"
               value={name}
               onChange={onChange}
+              ref={register({
+                required: true,
+              })}
             />
           </div>
           <label>Trạng thái : </label>
