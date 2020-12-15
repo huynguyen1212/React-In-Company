@@ -6,7 +6,7 @@ import TaskList from "./components/TaskList";
 import { filter, findIndex } from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-// import demo from "./trainning/demo";
+import demo from "./trainning/demo";
 
 class App extends Component {
   constructor(props) {
