@@ -11,6 +11,7 @@ class TaskControlSearch extends Component {
       keyword: "",
     };
   }
+  
   onChange = (event) => {
     var target = event.target;
     var name = target.name;
@@ -19,6 +20,7 @@ class TaskControlSearch extends Component {
       [name]: value,
     });
   };
+
   onSearch = () => {
     this.props.onSearch(this.state.keyword);
   };

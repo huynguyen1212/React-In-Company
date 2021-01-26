@@ -1,0 +1,10 @@
+- action nhận biến rồi trả về biến để  truyền vào reducer (product, ...);
+- reducer nhận đc action lấy biến action truyền vào để xử lí
+- từ container của đi sự kiện (dispatch) rồi truyền vào các reducer con để bắt sự kiện vào lấy props đc truyền 
+sau đó truyền biến vào để thực hiện sự kiện
+
+// container giao giao tiếp với reducer, 
+đóng vai trò trung gian giữa reducer và component,
+chỉ nhận vào các props để hiển thị giao diện,
+kết nối với redux để lấy state trên store,
+dispatch action(chỉ đạo action)

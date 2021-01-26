@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import * as Message from "../constants/Message";
+import products from "../reducers/products";
 
 class CartItem extends Component {
   render() {
@@ -22,12 +24,18 @@ class CartItem extends Component {
           <span className="qty">{item.quantity} </span>
           <div className="btn-group radio-group" data-toggle="buttons">
             <label
+              onClick={() =>
+                this.onUpdateQuantity(item.product, item.quantity - 1)
+              }
               className="btn btn-sm btn-primary
                             btn-rounded waves-effect waves-light"
             >
               <a>—</a>
             </label>
             <label
+              onClick={() =>
+                this.onUpdateQuantity(item.product, item.quantity + 1)
+              }
               className="btn btn-sm btn-primary
                             btn-rounded waves-effect waves-light"
             >
@@ -44,6 +52,9 @@ class CartItem extends Component {
             data-placement="top"
             title=""
             data-original-title="Remove item"
+            onClick={() => {
+              this.onDelete(item.product);
+            }}
           >
             X
           </button>
@@ -51,6 +62,18 @@ class CartItem extends Component {
       </tr>
     );
   }
+
+  onUpdateQuantity = (product, quantity) => {
+    var { onUpdateProductInCart, onChangeMessage } = this.props;
+    onUpdateProductInCart(product, quantity);
+    onChangeMessage(Message.MSG_UPDATE_CART_SUCCESS);
+  };
+
+  onDelete = (product) => {
+    var { onDeleteProductInCart, onChangeMessage } = this.props;
+    onDeleteProductInCart(product);
+    onChangeMessage(Message.MSG_DELETE_PRODUCT_IN_CART_SUCCESS);
+  };
 
   subTotal = (price, quantity) => {
     return price * quantity;
