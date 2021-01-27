@@ -1,102 +1,102 @@
-import React, { Component } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState, useEffect } from "react";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
-import { connect } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 import * as actions from "../actions/index";
 
-class TaskForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      id: "",
-      name: "",
-      status: false,
-    };
-  }
+function TaskForm(props) {
+  const [id, setId] = useState("");
+  const [name, setName] = useState("");
+  const [status, setStatus] = useState(false);
 
-  componentWillMount() {
-    if (this.props.itemEditing && this.props.itemEditing.id !== null) {
-      this.setState({
-        id: this.props.itemEditing.id,
-        name: this.props.itemEditing.name,
-        status: this.props.itemEditing.status,
-      });
-    } else {
-      this.onClear();
+  const isDisplayForm = useSelector((state) => {
+    return state.isDisplayForm;
+  });
+  const itemEditing = useSelector((state) => {
+    return state.itemEditing;
+  });
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (props && props.task) {
+      setId(props.task.id);
+      setName(props.task.name);
+      setStatus(props.task.status);
+    } else if (!props.task) {
+      setId("");
+      setName("");
+      setStatus(false);
     }
-  }
+  }, [props]);
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps && nextProps.itemEditing) {
-      this.setState({
-        id: nextProps.itemEditing.id,
-        name: nextProps.itemEditing.name,
-        status: nextProps.itemEditing.status,
-      });
-    } else {
-      this.onClear();
-    }
-  }
-
-  onCloseForm = () => {
-    this.props.onCloseForm();
+  const onCloseForm = () => {
+    dispatch(actions.closeForm());
   };
+  let history = useHistory();
 
-  onChange = (event) => {
-    var target = event.target;
-    var name = target.name;
-    var value = target.value;
+  const onChange = (event) => {
+    let target = event.target;
+    let name = target.name;
+    let value = target.value;
+    console.log(name, value);
     if (name === "status") {
       value = target.value === "true" ? true : false;
+      setStatus(value);
     }
-    this.setState({
-      [name]: value,
-    });
+    if (name === "name") {
+      setName(value);
+    }
   };
 
-  onSave = (event) => {
+  const onSubmit = (event) => {
     event.preventDefault();
-    this.props.onSaveTask(this.state);
-    this.onCloseForm();
-    this.onClear();
+    props.onSubmit({ id: id, name: name, status: status });
+    history.push("/");
+    onCloseForm();
+    onClear();
   };
 
-  onClear = () => {
-    this.setState({
-      name: "",
-      status: false,
-    });
+  const onClear = () => {
+    setName("");
+    setStatus(false);
+    history.push("/");
   };
 
-  render() {
-    if (!this.props.isDisplayForm) return null;
-    var { id } = this.state;
+  const { register, handleSubmit } = useForm();
+  if (!isDisplayForm) return null;
+  else
     return (
       <div className="panel panel-warning">
         <div className="panel-heading">
           <h3 className="panel-title">
             {id ? "Cập nhập công việc " : "Thêm Công Việc "}
-            <FontAwesomeIcon icon={faWindowClose} onClick={this.onCloseForm} />
+            <FontAwesomeIcon icon={faWindowClose} onClick={onCloseForm} />
           </h3>
         </div>
         <div className="panel-body">
-          <form onSubmit={this.onSave}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
               <label>Tên : </label>
               <input
                 type="text"
                 className="form-control"
                 name="name"
-                value={this.state.name}
-                onChange={this.onChange}
+                value={name}
+                onChange={onChange}
+                ref={register({
+                  required: true,
+                })}
               />
             </div>
             <label>Trạng thái : </label>
             <select
               name="status"
               className="form-control"
-              value={this.state.status}
-              onChange={this.onChange}
+              value={status}
+              onChange={onChange}
             >
               <option value="true">Kích hoạt</option>
               <option value="false">Ẩn</option>
@@ -110,7 +110,7 @@ class TaskForm extends Component {
               <button
                 type="button"
                 className="btn btn-danger"
-                onClick={this.onClear}
+                onClick={onClear}
               >
                 Hủy bỏ
               </button>
@@ -119,25 +119,6 @@ class TaskForm extends Component {
         </div>
       </div>
     );
-  }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    isDisplayForm: state.isDisplayForm,
-    itemEditing: state.itemEditing,
-  };
-};
-
-const mapDispatchToProps = (dispatch, props) => {
-  return {
-    onSaveTask: (task) => {
-      dispatch(actions.saveTask(task));
-    },
-    onCloseForm: () => {
-      dispatch(actions.closeForm());
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TaskForm);
+export default TaskForm;

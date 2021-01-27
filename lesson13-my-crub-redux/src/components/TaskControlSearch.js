@@ -9,11 +9,16 @@ function TaskControlSearch(props) {
 
   const onChange = (event) => {
     var target = event.target;
+    // var name = target.name;
     var value = target.value;
     setKeyword(value);
   };
 
   const dispatch = useDispatch();
+
+  const onSearch = () => {
+    dispatch(actions.searchTask(keyword));
+  };
 
   return (
     <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -27,13 +32,7 @@ function TaskControlSearch(props) {
           onChange={onChange}
         />
         <span className="input-group-btn">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={(keyword) => {
-              dispatch(actions.searchTask(keyword));
-            }}
-          >
+          <button type="button" className="btn btn-primary" onClick={onSearch}>
             <FontAwesomeIcon icon={faSearch} /> Tìm
           </button>
         </span>

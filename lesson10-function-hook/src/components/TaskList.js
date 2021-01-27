@@ -10,7 +10,6 @@ function TaskList(props) {
     var target = event.target;
     var name = target.name;
     var value = target.value;
-    console.log(name, value);
     props.onFilter(
       name === "filterName" ? value : filterName,
       name === "filterStatus" ? value : filterStatus

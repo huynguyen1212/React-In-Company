@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  NavLink,
-  useHistory,
-} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 function TaskForm(props) {
