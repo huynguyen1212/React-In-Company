@@ -20,7 +20,7 @@ function TaskList(props) {
   const [filterName, setFilterName] = useState("");
   const [filterStatus, setFilterStatus] = useState(-1);
   const [taskss, setTaskss] = useState(tasks);
-  console.log("task", taskss);
+  
   const dispatch = useDispatch();
 
   const onChange = (event) => {
