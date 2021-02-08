@@ -1,20 +1,12 @@
 import React from "react";
 import "./App.css";
+import Menu from "./components/Menu/Menu"
+import ProductList from "./components/ProductList/ProductList"
 
 function App() {
   return (
     <div>
-      <div className="navbar navbar-default">
-        <a className="navbar-brand">Call API</a>
-        <ul className="nav navbar-nav">
-          <li>
-            <a>Trang chủ</a>
-          </li>
-          <li>
-            <a>Quản lí sản phẩm</a>
-          </li>
-        </ul>
-      </div>
+      <Menu />
 
       <div className="container">
         <div className="row">
@@ -22,47 +14,10 @@ function App() {
             <button type="button" className="btn btn-info mb-10">
               Thêm sản phẩm
             </button>
-            <div className="panel panel-primary">
-              <div className="panel-heading">
-                <h3 className="panel-title">Danh sách sản phẩm</h3>
-              </div>
-              <div className="panel-body">
-                <table className="table table-bordered table-hover">
-                  <thead>
-                    <tr>
-                      <th>STT</th>
-                      <th>Mã</th>
-                      <th>Tên</th>
-                      <th>Giá</th>
-                      <th>Trạng thái</th>
-                      <th>Hành động</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>1</td>
-                      <td>Iphone X plus</td>
-                      <td>500</td>
-                      <td>
-                        <span className="label label-warning">Còn hàng</span>
-                      </td>
-                      <td>
-                        <button type="button" className="btn btn-success mr-10">Sửa</button>
-                        <button type="button" className="btn btn-danger">Xóa</button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-
-              </div>
-            </div>
-
+            <ProductList />
           </div>
         </div>
-
       </div>
-
     </div>
   );
 }
