@@ -2,7 +2,7 @@ import React from "react";
 import ProductItem from "../ProductItem/ProductItem"
 
 
-function ProductList() {
+function ProductList(props) {
   return (
     <div className="panel panel-primary">
       <div className="panel-heading">
@@ -21,9 +21,7 @@ function ProductList() {
             </tr>
           </thead>
           <tbody>
-            <ProductItem />
-            <ProductItem />
-            <ProductItem />
+            {props.children}
           </tbody>
         </table>
       </div>

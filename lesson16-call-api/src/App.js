@@ -1,8 +1,7 @@
 import React from "react";
-import { Route, Router, Switch } from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import "./App.css";
 import Menu from "./components/Menu/Menu"
-import ProductList from "./components/ProductList/ProductList"
 import routes from "./routes";
 
 function App(props) {
@@ -27,12 +26,6 @@ function App(props) {
         <Menu />
         <div className="container">
           <div className="row">
-            {/* <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <button type="button" className="btn btn-info mb-10">
-              Thêm sản phẩm
-            </button>
-            <ProductList />
-          </div> */}
             {showContentMenus(routes)}
           </div>
         </div>

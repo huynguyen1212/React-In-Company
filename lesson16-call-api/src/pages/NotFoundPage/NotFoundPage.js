@@ -1,6 +1,6 @@
 import React from "react";
 
-function NotFoundPage() {
+function NotFoundPage(props) {
   return (
     <div className="container">
 

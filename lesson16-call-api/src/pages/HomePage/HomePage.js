@@ -1,6 +1,6 @@
 import React from "react";
 
-function HomePage() {
+function HomePage(props) {
   return (
     <div className="container">
       <h1>Trang chủ</h1>
