@@ -1,13 +1,27 @@
 import React from "react";
 import ProductList from "../../components/ProductList/ProductList"
 import ProductItem from "../../components/ProductItem/ProductItem"
-import { useSelector, useDispatch } from "react-redux";
+// import { useSelector, useDispatch } from "react-redux";
+import axios from "axios"
 
 function ProductListPage(props) {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const products = useSelector((state) => {
-    return state.products;
+  // const products = useSelector((state) => {
+  //   return state.products;
+  // });
+
+  const products = [];
+
+  axios({
+    method: "GET",
+    url: "http://localhost:3000/products",
+    data: null,
+  }).then(res => {
+    console.log(res);
+    products = res.data;
+  }).catch(err => {
+    console.log(err);
   });
 
   const showProducts = (products) => {
