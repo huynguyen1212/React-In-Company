@@ -1,12 +1,10 @@
 import React from "react";
 import ProductList from "../../components/ProductList/ProductList"
 import ProductItem from "../../components/ProductItem/ProductItem"
-// import { useSelector, useDispatch } from "react-redux";
+// import { useSelector } from "react-redux";
 import axios from "axios"
 
 function ProductListPage(props) {
-  // const dispatch = useDispatch();
-
   // const products = useSelector((state) => {
   //   return state.products;
   // });
