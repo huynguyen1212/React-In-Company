@@ -11,6 +11,7 @@ function ProductListPage(props) {
 
   const products = [];
 
+  
   axios({
     method: "GET",
     url: "http://localhost:3000/products",
