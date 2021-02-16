@@ -1,27 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProductList from "../../components/ProductList/ProductList"
 import ProductItem from "../../components/ProductItem/ProductItem"
 // import { useSelector } from "react-redux";
-import axios from "axios"
+import callApi from "../../utils/apiCaller"
+import { Link } from "react-router-dom"
 
 function ProductListPage(props) {
   // const products = useSelector((state) => {
   //   return state.products;
   // });
 
-  const products = [];
+  const [products, setProducts] = useState("");
 
-  
-  axios({
-    method: "GET",
-    url: "http://localhost:3000/products",
-    data: null,
-  }).then(res => {
-    console.log(res);
-    products = res.data;
-  }).catch(err => {
-    console.log(err);
-  });
+  useEffect(() => {
+    callApi("products", "GET", null).then(
+      res => {
+        setProducts(res.data);
+      }
+    )
+  }, [props]);
 
   const showProducts = (products) => {
     var result = null;
@@ -40,9 +37,9 @@ function ProductListPage(props) {
   }
   return (
     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <button type="button" className="btn btn-info mb-10">
+      <Link to = "product/add" className="btn btn-info mb-10">
         Thêm sản phẩm
-            </button>
+      </Link>
       <ProductList>
         {showProducts(products)}
       </ProductList>
