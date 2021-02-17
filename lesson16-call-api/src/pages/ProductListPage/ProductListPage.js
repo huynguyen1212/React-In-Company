@@ -20,6 +20,28 @@ function ProductListPage(props) {
     )
   }, [props]);
 
+  const onDelete = (id) => {
+    callApi(`products/${id}`, "DELETE", null).then(res => {
+      if (res.status === 200) {
+        var index = findIndex(products, id);
+        if (index !== -1) {
+          products.splice(index, 1);
+          setProducts(products);
+        }
+      }
+    })
+  }
+
+  const findIndex = (products, id) => {
+    var result = -1;
+    products.forEach((product, index) => {
+      if (product.id === id) {
+        result = index
+      }
+    });
+    return result;
+  }
+
   const showProducts = (products) => {
     var result = null;
     if (products.length > 0) {
@@ -29,15 +51,17 @@ function ProductListPage(props) {
             key={index}
             product={product}
             index={index}
+            onDelete={onDelete}
           />
         )
       })
     }
     return result;
   }
+
   return (
     <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <Link to = "product/add" className="btn btn-info mb-10">
+      <Link to="product/add" className="btn btn-info mb-10">
         Thêm sản phẩm
       </Link>
       <ProductList>

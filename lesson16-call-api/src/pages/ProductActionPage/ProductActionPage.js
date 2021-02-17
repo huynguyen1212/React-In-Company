@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import callApi from "../../utils/apiCaller"
+import { Link, useHistory } from "react-router-dom";
 
 function ProductActionPage(props) {
 
@@ -7,6 +8,8 @@ function ProductActionPage(props) {
   const [txtName, setTxtName] = useState("");
   const [txtPrice, setTxtPrice] = useState("");
   const [chkbStatus, setChkbStatus] = useState("");
+
+  let history = useHistory();
 
   const onChange = (e) => {
     var target = e.target;
@@ -37,6 +40,7 @@ function ProductActionPage(props) {
       }
     ).then(res => {
       console.log(res);
+      history.push("/product-list");
     })
   }
 
@@ -58,6 +62,9 @@ function ProductActionPage(props) {
             Còn hàng
           </label>
         </div>
+        <Link to = "/product-list" className = "btn btn-danger mr-10">
+          Trở lại
+        </Link>
         <button type="submit" className="btn btn-primary">Lưu lại</button>
       </form>
     </div>
