@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import callApi from "../../utils/apiCaller"
 import { Link, useHistory } from "react-router-dom";
 
@@ -10,6 +10,20 @@ function ProductActionPage(props) {
   const [chkbStatus, setChkbStatus] = useState("");
 
   let history = useHistory();
+
+  useEffect(() => {
+    var { match } = props;
+    if (match) {
+      var id = match.params.id;
+      callApi(`products/${id}`, 'GET', null).then(res => {
+        var data = res.data;
+        setId(data.id);
+        setTxtName(data.name);
+        setTxtPrice(data.price);
+        setChkbStatus(data.status);
+      })
+    }
+  }, [props]);
 
   const onChange = (e) => {
     var target = e.target;
@@ -31,17 +45,28 @@ function ProductActionPage(props) {
 
   const onSave = (e) => {
     e.preventDefault();
-    // console.log(id, txtName, txtPrice, chkbStatus);
-    callApi("products", "POST",
-      {
-        name: txtName,
-        price: txtPrice,
-        status: chkbStatus
-      }
-    ).then(res => {
-      console.log(res);
-      history.push("/product-list");
-    })
+    if (id) {
+      callApi(`products/${id}`, "PUT",
+        {
+          name: txtName,
+          price: txtPrice,
+          status: chkbStatus
+        }
+      ).then(res => {
+        history.push("/product-list");
+      })
+    }
+    else {
+      callApi("products", "POST",
+        {
+          name: txtName,
+          price: txtPrice,
+          status: chkbStatus
+        }
+      ).then(res => {
+        history.push("/product-list");
+      })
+    }
   }
 
   return (
@@ -58,11 +83,11 @@ function ProductActionPage(props) {
         <label>Trạng thái :</label> <br />
         <div className="checkbox">
           <label>
-            <input type="checkbox" name="chkbStatus" value={chkbStatus} onChange={onChange} />
+            <input type="checkbox" name="chkbStatus" value={chkbStatus} onChange={onChange} checked={chkbStatus} />
             Còn hàng
           </label>
         </div>
-        <Link to = "/product-list" className = "btn btn-danger mr-10">
+        <Link to="/product-list" className="btn btn-danger mr-10">
           Trở lại
         </Link>
         <button type="submit" className="btn btn-primary">Lưu lại</button>

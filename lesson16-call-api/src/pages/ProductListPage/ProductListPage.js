@@ -1,45 +1,24 @@
 import React, { useEffect, useState } from "react";
 import ProductList from "../../components/ProductList/ProductList"
 import ProductItem from "../../components/ProductItem/ProductItem"
-// import { useSelector } from "react-redux";
-import callApi from "../../utils/apiCaller"
+import { useSelector, useDispatch } from "react-redux";
+// import callApi from "../../utils/apiCaller"
 import { Link } from "react-router-dom"
+import { actDeleteProductRequest, actFetchProductsRequest } from "../../actions/index";
 
 function ProductListPage(props) {
-  // const products = useSelector((state) => {
-  //   return state.products;
-  // });
+  const products = useSelector((state) => {
+    return state.products;
+  });
 
-  const [products, setProducts] = useState("");
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    callApi("products", "GET", null).then(
-      res => {
-        setProducts(res.data);
-      }
-    )
+    dispatch(actFetchProductsRequest());
   }, [props]);
 
   const onDelete = (id) => {
-    callApi(`products/${id}`, "DELETE", null).then(res => {
-      if (res.status === 200) {
-        var index = findIndex(products, id);
-        if (index !== -1) {
-          products.splice(index, 1);
-          setProducts(products);
-        }
-      }
-    })
-  }
-
-  const findIndex = (products, id) => {
-    var result = -1;
-    products.forEach((product, index) => {
-      if (product.id === id) {
-        result = index
-      }
-    });
-    return result;
+    dispatch(actDeleteProductRequest(id));
   }
 
   const showProducts = (products) => {
