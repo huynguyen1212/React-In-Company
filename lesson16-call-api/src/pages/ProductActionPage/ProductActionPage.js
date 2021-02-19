@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import callApi from "../../utils/apiCaller"
 import { Link, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { actAddProductRequest, actGetProductRequest, actUpdateProductRequest } from "../../actions";
 
 function ProductActionPage(props) {
 
@@ -11,19 +13,24 @@ function ProductActionPage(props) {
 
   let history = useHistory();
 
+  const itemEditing = useSelector((state) => {
+    return state.itemEditing;
+  });
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     var { match } = props;
     if (match) {
       var id = match.params.id;
-      callApi(`products/${id}`, 'GET', null).then(res => {
-        var data = res.data;
-        setId(data.id);
-        setTxtName(data.name);
-        setTxtPrice(data.price);
-        setChkbStatus(data.status);
-      })
+      dispatch(actGetProductRequest(id));
+
     }
-  }, [props]);
+    setId(itemEditing.id);
+    setTxtName(itemEditing.name);
+    setTxtPrice(itemEditing.price);
+    setChkbStatus(itemEditing.status);
+  }, [itemEditing.id]);
 
   const onChange = (e) => {
     var target = e.target;
@@ -45,28 +52,19 @@ function ProductActionPage(props) {
 
   const onSave = (e) => {
     e.preventDefault();
+    var product = {
+      id: id,
+      name: txtName,
+      price: txtPrice,
+      status: chkbStatus,
+    }
     if (id) {
-      callApi(`products/${id}`, "PUT",
-        {
-          name: txtName,
-          price: txtPrice,
-          status: chkbStatus
-        }
-      ).then(res => {
-        history.push("/product-list");
-      })
+      dispatch(actUpdateProductRequest(product));
     }
     else {
-      callApi("products", "POST",
-        {
-          name: txtName,
-          price: txtPrice,
-          status: chkbStatus
-        }
-      ).then(res => {
-        history.push("/product-list");
-      })
+      dispatch(actAddProductRequest(product));
     }
+    history.push("/product-list");
   }
 
   return (
